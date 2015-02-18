@@ -1,0 +1,35 @@
+
+require_relative '../lib/forecast.rb'
+class WeatherCLI
+
+  attr_accessor :state, :city
+
+  # def initialize
+  #   Forecast.new.call
+  # end
+
+  def run
+    welcome
+    puts "Let's get some info from you first."
+    get_location
+    Forecast.new.call(state, city)
+
+  end
+
+  def welcome
+    puts "Hey Noah. Don't worry, I'll tell you exactly what to wear today--you don't even have to look out of your window."
+  end
+
+  def get_location
+    puts "What state are you in?"
+    @state = gets.strip
+    puts "What city are you in?"
+    @city = gets.strip
+  end
+
+
+
+
+end
+
+WeatherCLI.new.run
