@@ -3,7 +3,6 @@ require 'json'
 require 'pry'
 
 
-require 'pry'
 class Forecast
 
   BASE_URL = "http://api.wunderground.com/api/e3aedba0b8b8d5e5/conditions/q"
@@ -34,11 +33,14 @@ class Forecast
     end
   end
 
-  def percipitating? #(weather_hash)
+  def percipitating?(weather_hash)
     true
-    # percipitation = weather_hash["current_observation"]["weather"]
-    # if include?(regex for rain, snow, sleet, hail)
-    #   return true, else return false
+    percipitation = weather_hash["current_observation"]["weather"]
+    if percipitation.scan(/(Rain|Snow|Hail|Sleet)/).flatten[0] != nil
+      return true
+    else
+      return false
+    end
   end
 
 
@@ -51,7 +53,7 @@ class Forecast
     weather_hash = get_json(region_url)
     # binding.pry
     @current_temp = get_current_temp(weather_hash)
-    @falling_from_the_sky = percipitating? #(weather_hash)
+    @falling_from_the_sky = percipitating?(weather_hash)
     
     if @falling_from_the_sky && @current_temp == "cold"
       puts "COLD AND MISERABLE. Wear boots, a BIG jacket, a hat, gloves and bring an umbrella."

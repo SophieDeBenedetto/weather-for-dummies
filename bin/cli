@@ -1,5 +1,6 @@
 
 require_relative '../lib/forecast.rb'
+require 'pry'
 class WeatherCLI
 
   attr_accessor :state, :city
@@ -23,8 +24,9 @@ class WeatherCLI
   def get_location
     puts "What state are you in?"
     @state = gets.strip
+    # binding.pry
     puts "What city are you in?"
-    @city = gets.strip
+    @city = gets.strip.gsub(" ", "_")
   end
 
 
